@@ -30,6 +30,7 @@ The app provides a clean and modern interface where users can:
 - ✅ Responsive Layout: Works perfectly on both desktop and mobile.  
 - ✅ Custom Styling: Elegant gradient background with a modern look. 
 
+---
 
 ### ⚙️ How to Run Locally
 
