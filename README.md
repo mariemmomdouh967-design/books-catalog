@@ -23,19 +23,13 @@ The app provides a clean and modern interface where users can:
 
 ### 🌟 Features
 
-✅ Interactive UI: Smooth navigation using Streamlit components.
+- ✅ Interactive UI: Smooth navigation using Streamlit components.  
+- ✅ Favorites System: Save and manage your favorite books easily.  
+- ✅ Search Function: Instantly filter books by title.  
+- ✅ Dynamic Cards: Each book includes its image, author, and rating.  
+- ✅ Responsive Layout: Works perfectly on both desktop and mobile.  
+- ✅ Custom Styling: Elegant gradient background with a modern look. 
 
-✅ Favorites System: Save and manage your favorite books easily.
-
-✅ Search Function: Instantly filter books by title.
-
-✅ Dynamic Cards: Each book includes its image, author, and rating.
-
-✅ Responsive Layout: Works perfectly on both desktop and mobile.
-
-✅ Custom Styling: Elegant gradient background with a modern look.
-
----
 
 ### ⚙️ How to Run Locally
 
