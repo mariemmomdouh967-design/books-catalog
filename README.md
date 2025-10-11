@@ -37,7 +37,7 @@ The app provides a clean and modern interface where users can:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/<your-username>/books-catalog.git
+   git clone https://github.com/mariemmomdouh967-design/books-catalog.git
    cd books-catalog
    ```
 2. Install dependencies:
