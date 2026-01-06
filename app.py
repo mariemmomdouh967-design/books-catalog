@@ -130,31 +130,15 @@ def display_book(book):
             st.write(book["plot"])
             st.markdown(f"[🔗 Link to book]({book['link']})")
 
-     # زرار favorites
-if "favorites" not in st.session_state:
-    st.session_state.favorites = []
+# زرار favorites  
+if book["title"] in st.session_state.favorites:  
+    if st.button(f"❤️ Remove from Favorites: {book['title']}", key=book["title"]+"_fav"):  
+        st.session_state.favorites.remove(book["title"])  
+else:  
+    if st.button(f"🤍 Add to Favorites: {book['title']}", key=book["title"]+"_fav"):  
+        st.session_state.favorites.append(book["title"])  
 
-books = [{"title": "Book A"}, {"title": "Book B"}, {"title": "Book C"}]
-
-st.header("Books List")
-for book in books:
-    st.markdown(f"### {book['title']}")
-    key_name = f"{book['title']}_fav"
-    is_fav = book["title"] in st.session_state.favorites
-
-    if st.button("❤️ Remove from Favorites" if is_fav else "🤍 Add to Favorites", key=key_name):
-        if is_fav:
-            st.session_state.favorites.remove(book["title"])
-        else:
-            st.session_state.favorites.append(book["title"])
-        st.experimental_rerun()  # تعيد تحميل الصفحة فورًا لتحديث الأزرار
-
-st.header("My Favorites")
-if st.session_state.favorites:
-    for fav in st.session_state.favorites:
-        st.write(f"⭐ {fav}")
-else:
-    st.write("No favorites yet.")
+st.markdown('</div>', unsafe_allow_html=True)
 
 # ========== Pages ==========
 if choice == "📩 Contact":
@@ -217,4 +201,5 @@ div.stAlert > div[role="alert"] * {
 }
 </style>
 """, unsafe_allow_html=True)
+
 
