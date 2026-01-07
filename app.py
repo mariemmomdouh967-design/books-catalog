@@ -117,28 +117,31 @@ def display_book(book):
         st.image(book["image"], width=150)
         st.subheader(f"{book['title']} by {book['author']} | ⭐ {book['rating']}")
 
-        # حالة لكل كتاب في session_state
+        # حالة لكل كتاب في session_state 
         if f"show_info_{book['title']}" not in st.session_state:
             st.session_state[f"show_info_{book['title']}"] = False
 
-        # زرار More Information (toggle)
+        # زرار More Information
         if st.button(f"ℹ️ More Information about {book['title']}", key=book["title"]):
             st.session_state[f"show_info_{book['title']}"] = not st.session_state[f"show_info_{book['title']}"]
 
-        # عرض المعلومات لو الحالة True
+        # عرض المعلومات لو الحالة True 
         if st.session_state[f"show_info_{book['title']}"]:
             st.write(book["plot"])
             st.markdown(f"[🔗 Link to book]({book['link']})")
 
-# زرار favorites  
-if book["title"] in st.session_state.favorites:  
-    if st.button(f"❤️ Remove from Favorites: {book['title']}", key=book["title"]+"_fav"):  
-        st.session_state.favorites.remove(book["title"])  
-else:  
-    if st.button(f"🤍 Add to Favorites: {book['title']}", key=book["title"]+"_fav"):  
-        st.session_state.favorites.append(book["title"])  
+        # ========= Favorites =========
+        fav_key = f"{book['title']}_fav"
 
-st.markdown('</div>', unsafe_allow_html=True)
+        if book["title"] in st.session_state.favorites:
+            if st.button(f"❤️ Remove from Favorites: {book['title']}", key=fav_key):
+                st.session_state.favorites.remove(book["title"])
+        else:
+            if st.button(f"🤍 Add to Favorites: {book['title']}", key=fav_key):
+                st.session_state.favorites.append(book["title"])
+
+        st.markdown('</div>', unsafe_allow_html=True)
+
 
 # ========== Pages ==========
 if choice == "📩 Contact":
@@ -201,5 +204,6 @@ div.stAlert > div[role="alert"] * {
 }
 </style>
 """, unsafe_allow_html=True)
+
 
 
