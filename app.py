@@ -111,25 +111,26 @@ choice = st.radio(
 )
 
 # ========== Function to Display a Book ==========
-def display_book(book):
+    def display_book(book):
     with st.container():
         st.markdown('<div class="book-card">', unsafe_allow_html=True)
         st.image(book["image"], width=150)
         st.subheader(f"{book['title']} by {book['author']} | ⭐ {book['rating']}")
 
-        # زرار المعلومات (زي ما كان)
         if f"show_info_{book['title']}" not in st.session_state:
             st.session_state[f"show_info_{book['title']}"] = False
 
-        if st.button(f"ℹ️ More Information about {book['title']}", key=book["title"]):
+        if st.button(
+            f"ℹ️ More Information about {book['title']}",
+            key=f"info_{book['title']}"
+        ):
             st.session_state[f"show_info_{book['title']}"] = not st.session_state[f"show_info_{book['title']}"]
 
         if st.session_state[f"show_info_{book['title']}"]:
             st.write(book["plot"])
             st.markdown(f"[🔗 Link to book]({book['link']})")
 
-        # زرار المفضلة (التعديل الوحيد المهم)
-        fav_key = f"{book['title']}_fav"
+        fav_key = f"fav_{book['title']}"
 
         if book in st.session_state.favorites:
             if st.button(f"❤️ Remove from Favorites: {book['title']}", key=fav_key):
@@ -201,6 +202,7 @@ div.stAlert > div[role="alert"] * {
 }
 </style>
 """, unsafe_allow_html=True)
+
 
 
 
