@@ -61,7 +61,7 @@ books = [
      "plot": "An injured baseball star finds hope through an unexpected bond with a mysterious patient.",
      "link": "https://www.amazon.com/Audible-Room-27-English-Edition/dp/B0F8XGGRWN"},
 
-     {"title": "Dream On ", "author": "Jennifer Hartmann", "rating": "4.6",
+     {"title": "Dream On", "author": "Jennifer Hartmann", "rating": "4.6",
      "image": "https://m.media-amazon.com/images/I/81WGYCseBSL._SL1500_.jpg",
      "plot": "A Hollywood star and a small-town dreamer reunite in a fake romance where past heartbreak meets new desire.",
      "link": "https://www.amazon.com/Dream-Deluxe-Jennifer-Hartmann/dp/1464236399"},
@@ -117,45 +117,42 @@ def display_book(book):
         st.image(book["image"], width=150)
         st.subheader(f"{book['title']} by {book['author']} | ⭐ {book['rating']}")
 
-        # حالة لكل كتاب في session_state 
+        # زرار المعلومات (زي ما كان)
         if f"show_info_{book['title']}" not in st.session_state:
             st.session_state[f"show_info_{book['title']}"] = False
 
-        # زرار More Information
         if st.button(f"ℹ️ More Information about {book['title']}", key=book["title"]):
             st.session_state[f"show_info_{book['title']}"] = not st.session_state[f"show_info_{book['title']}"]
 
-        # عرض المعلومات لو الحالة True 
         if st.session_state[f"show_info_{book['title']}"]:
             st.write(book["plot"])
             st.markdown(f"[🔗 Link to book]({book['link']})")
 
-        # ========= Favorites =========
+        # زرار المفضلة (التعديل الوحيد المهم)
         fav_key = f"{book['title']}_fav"
 
-        if book["title"] in st.session_state.favorites:
+        if book in st.session_state.favorites:
             if st.button(f"❤️ Remove from Favorites: {book['title']}", key=fav_key):
-                st.session_state.favorites.remove(book["title"])
+                st.session_state.favorites.remove(book)
         else:
             if st.button(f"🤍 Add to Favorites: {book['title']}", key=fav_key):
-                st.session_state.favorites.append(book["title"])
+                st.session_state.favorites.append(book)
 
         st.markdown('</div>', unsafe_allow_html=True)
 
-
 # ========== Pages ==========
 if choice == "📩 Contact":
-    st.info("📧 Official Email: **mariemmomdouh967@gmail.com**")
+ st.info("📧 Official Email: **mariemmomdouh967@gmail.com**")
 
 elif choice == "❤️ Favorites":
     if st.session_state.favorites:
         st.success("📌 Your Favorite Books:")
         cols = st.columns(2)
-        for i, fav in enumerate(st.session_state.favorites):
-            book = next((b for b in books if b["title"] == fav), None)
-            if book:
-                with cols[i % 2]:
-                    display_book(book)
+
+        for i, book in enumerate(st.session_state.favorites):
+            with cols[i % 2]:
+                display_book(book)
+
     else:
         st.warning("❤️ No favorites added yet.")
 
@@ -204,6 +201,7 @@ div.stAlert > div[role="alert"] * {
 }
 </style>
 """, unsafe_allow_html=True)
+
 
 
 
