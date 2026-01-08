@@ -111,7 +111,7 @@ choice = st.radio(
 )
 
 # ========== Function to Display a Book ==========
-    def display_book(book):
+def display_book(book):
     book_id = book["title"].strip().lower()
 
     with st.container():
@@ -135,13 +135,13 @@ choice = st.radio(
         fav_key = f"fav_{book_id}"
 
         if book_id in st.session_state.favorites:
-            if st.button(f"❤️ Remove from Favorites", key=fav_key):
+            if st.button("❤️ Remove from Favorites", key=fav_key):
                 st.session_state.favorites.remove(book_id)
         else:
-            if st.button(f"🤍 Add to Favorites", key=fav_key):
+            if st.button("🤍 Add to Favorites", key=fav_key):
                 st.session_state.favorites.append(book_id)
 
-        st.markdown('</div>', unsafe_allow_html=True)خ
+        st.markdown('</div>', unsafe_allow_html=True)
 
 # ========== Pages ==========
 if choice == "📩 Contact":
@@ -208,6 +208,7 @@ div.stAlert > div[role="alert"] * {
 }
 </style>
 """, unsafe_allow_html=True)
+
 
 
 
