@@ -112,34 +112,36 @@ choice = st.radio(
 
 # ========== Function to Display a Book ==========
     def display_book(book):
+    book_id = book["title"].strip().lower()
+
     with st.container():
         st.markdown('<div class="book-card">', unsafe_allow_html=True)
         st.image(book["image"], width=150)
         st.subheader(f"{book['title']} by {book['author']} | ⭐ {book['rating']}")
 
-        if f"show_info_{book['title']}" not in st.session_state:
-            st.session_state[f"show_info_{book['title']}"] = False
+        if f"show_info_{book_id}" not in st.session_state:
+            st.session_state[f"show_info_{book_id}"] = False
 
         if st.button(
             f"ℹ️ More Information about {book['title']}",
-            key=f"info_{book['title']}"
+            key=f"info_{book_id}"
         ):
-            st.session_state[f"show_info_{book['title']}"] = not st.session_state[f"show_info_{book['title']}"]
+            st.session_state[f"show_info_{book_id}"] = not st.session_state[f"show_info_{book_id}"]
 
-        if st.session_state[f"show_info_{book['title']}"]:
+        if st.session_state[f"show_info_{book_id}"]:
             st.write(book["plot"])
             st.markdown(f"[🔗 Link to book]({book['link']})")
 
-        fav_key = f"fav_{book['title']}"
+        fav_key = f"fav_{book_id}"
 
-        if book in st.session_state.favorites:
-            if st.button(f"❤️ Remove from Favorites: {book['title']}", key=fav_key):
-                st.session_state.favorites.remove(book)
+        if book_id in st.session_state.favorites:
+            if st.button(f"❤️ Remove from Favorites", key=fav_key):
+                st.session_state.favorites.remove(book_id)
         else:
-            if st.button(f"🤍 Add to Favorites: {book['title']}", key=fav_key):
-                st.session_state.favorites.append(book)
+            if st.button(f"🤍 Add to Favorites", key=fav_key):
+                st.session_state.favorites.append(book_id)
 
-        st.markdown('</div>', unsafe_allow_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)خ
 
 # ========== Pages ==========
 if choice == "📩 Contact":
@@ -150,10 +152,14 @@ elif choice == "❤️ Favorites":
         st.success("📌 Your Favorite Books:")
         cols = st.columns(2)
 
-        for i, book in enumerate(st.session_state.favorites):
-            with cols[i % 2]:
-                display_book(book)
-
+        for i, fav_id in enumerate(st.session_state.favorites):
+            book = next(
+                (b for b in books if b["title"].strip().lower() == fav_id),
+                None
+            )
+            if book:
+                with cols[i % 2]:
+                    display_book(book)
     else:
         st.warning("❤️ No favorites added yet.")
 
@@ -202,6 +208,7 @@ div.stAlert > div[role="alert"] * {
 }
 </style>
 """, unsafe_allow_html=True)
+
 
 
 
