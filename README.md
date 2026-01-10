@@ -1,19 +1,19 @@
 ## 📚 Books Catalog
 
-### 🧠 Overview
+### Overview
 
 **Books Catalog** is an interactive web application built with **Python** and **Streamlit** that allows users to explore a beautiful digital library of books.
 The app provides a clean and modern interface where users can:
 
-* Browse all available books 🧾
-* Read detailed summaries and ratings ⭐
-* Add or remove books from their personal favorites ❤️
-* Search for specific books 🔍
-* View the creator’s contact info 📩
+* Browse all available books 
+* Read detailed summaries and ratings 
+* Add or remove books from their personal favorites 
+* Search for specific books 
+* View the creator’s contact info 
 
 ---
 
-### 🛠️ Tech Stack
+### Tech Stack
 
 * **Python 3**
 * **Streamlit** (for UI and interactivity)
@@ -21,18 +21,18 @@ The app provides a clean and modern interface where users can:
 
 ---
 
-### 🌟 Features
+### Features
 
-- ✅ Interactive UI: Smooth navigation using Streamlit components.  
-- ✅ Favorites System: Save and manage your favorite books easily.  
-- ✅ Search Function: Instantly filter books by title.  
-- ✅ Dynamic Cards: Each book includes its image, author, and rating.  
-- ✅ Responsive Layout: Works perfectly on both desktop and mobile.  
-- ✅ Custom Styling: Elegant gradient background with a modern look. 
+- Interactive UI: Smooth navigation using Streamlit components.  
+- Favorites System: Save and manage your favorite books easily.  
+- Search Function: Instantly filter books by title.  
+- Dynamic Cards: Each book includes its image, author, and rating.  
+- Responsive Layout: Works perfectly on both desktop and mobile.  
+- Custom Styling: Elegant gradient background with a modern look. 
 
 ---
 
-### ⚙️ How to Run Locally
+### How to Run Locally
 
 1. Clone the repository:
 
@@ -55,13 +55,13 @@ The app provides a clean and modern interface where users can:
 
 ---
 
-### 🚀 Live Demo
+### Live Demo
 
-🔗 [Books Catalog on Streamlit](https://books-catalog-5ximemextrowthyagwuepn.streamlit.app/)
+[Books Catalog on Streamlit](https://books-catalog-5ximemextrowthyagwuepn.streamlit.app/)
 
 ---
 
-### 👩‍💻 Author
+### Author
 
 Developed with ❤️ by **Mariam Mamdouh**
 📧 [mariemmomdouh967@gmail.com](mailto:mariemmomdouh967@gmail.com)
