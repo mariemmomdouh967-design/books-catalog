@@ -63,6 +63,6 @@ The app provides a clean and modern interface where users can:
 
 ### Author
 
-Developed by **Mariam Mamdouh**
+Developed by **Mariam Mamdouh**.        
 **Email📧**: mariemmomdouh967@gmail.com
 
