@@ -51,7 +51,7 @@ The app provides a clean and modern interface where users can:
    streamlit run app.py
    ```
 4. Open your browser and visit:
-   👉 `http://localhost:8501`
+  `http://localhost:8501`
 
 ---
 
@@ -63,6 +63,6 @@ The app provides a clean and modern interface where users can:
 
 ### Author
 
-Developed with ❤️ by **Mariam Mamdouh**
-📧 [mariemmomdouh967@gmail.com](mailto:mariemmomdouh967@gmail.com)
+Developed by Mariam Mamdouh
+Email📧: mariemmomdouh967@gmail.com
 
