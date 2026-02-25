@@ -117,29 +117,25 @@ def display_book(book):
         st.image(book["image"], width=150)
         st.subheader(f"{book['title']} by {book['author']} | ⭐ {book['rating']}")
 
-        # حالة لكل كتاب في session_state
         if f"show_info_{book['title']}" not in st.session_state:
             st.session_state[f"show_info_{book['title']}"] = False
 
-        # زرار More Information (toggle)
-        if st.button(f"ℹ️ More Information about {book['title']}", key=book["title"]):
+        if st.button(f"ℹ️ More Information about {book['title']}", key=f"info_{book['title']}"):
             st.session_state[f"show_info_{book['title']}"] = not st.session_state[f"show_info_{book['title']}"]
 
-        # عرض المعلومات لو الحالة True
         if st.session_state[f"show_info_{book['title']}"]:
             st.write(book["plot"])
             st.markdown(f"[🔗 Link to book]({book['link']})")
 
-        # زرار favorites
-fav_key = f"fav_{book['title']}"  # key فريد لكل كتاب
-is_fav = book["title"] in st.session_state.favorites
+        # ✅ لازم يكون جوه الفنكشن
+        fav_key = f"fav_{book['title']}"
+        is_fav = book["title"] in st.session_state.favorites
 
-if st.button("❤️ Remove from Favorites" if is_fav else "🤍 Add to Favorites", key=fav_key):
-    if is_fav:
-        st.session_state.favorites.remove(book["title"])
-    else:
-        st.session_state.favorites.append(book["title"])
-
+        if st.button("❤️ Remove from Favorites" if is_fav else "🤍 Add to Favorites", key=fav_key):
+            if is_fav:
+                st.session_state.favorites.remove(book["title"])
+            else:
+                st.session_state.favorites.append(book["title"])
 
 # ========== Pages ==========
 if choice == "📩 Contact":
@@ -187,7 +183,7 @@ div.stAlert {
     padding: 0 !important;
 }
 
-/* خصص الشكل للمربع الداخلي اللي فيه الكلام */
+/* خصصي الشكل للمربع الداخلي اللي فيه الكلام */
 div.stAlert > div[role="alert"] {
     display: inline-block !important;
     background: #ffffff !important;   /* أبيض */
@@ -203,43 +199,5 @@ div.stAlert > div[role="alert"] * {
 </style>
 """, unsafe_allow_html=True)
 
-
-# app.py
-import streamlit as st
-import pandas as pd
-from sklearn.metrics.pairwise import cosine_similarity
-from sklearn.feature_extraction.text import CountVectorizer
-
-# بيانات كتب صغيرة كمثال
-data = {
-    'Title': ['Harry Potter', 'The Hobbit', 'Game of Thrones', 'The Alchemist', '1984'],
-    'Genre': ['Fantasy', 'Fantasy', 'Fantasy', 'Adventure', 'Dystopia']
-}
-df = pd.DataFrame(data)
-
-# Streamlit واجهة المستخدم
-st.title("Book Recommendation System")
-st.write("اختاري كتابًا للحصول على توصيات:")
-
-book_choice = st.selectbox("Book", df['Title'])
-
-# إنشاء similarity بين الكتب بناءً على النوع
-count = CountVectorizer()
-count_matrix = count.fit_transform(df['Genre'])
-cosine_sim = cosine_similarity(count_matrix, count_matrix)
-
-def recommend(title):
-    idx = df[df['Title'] == title].index[0]
-    sim_scores = list(enumerate(cosine_sim[idx]))
-    sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)
-    sim_scores = sim_scores[1:3]  # أعلى 2 توصية
-    book_indices = [i[0] for i in sim_scores]
-    return df['Title'].iloc[book_indices]
-
-if st.button("Get Recommendations"):
-    recommendations = recommend(book_choice)
-    st.write("Recommended Books:")
-    for book in recommendations:
-        st.write("- " + book)
 
 
