@@ -142,24 +142,26 @@ def display_book(book):
 
             heart = "❤️" if is_fav else "🤍"
 
-            if st.markdown(
-                f"""
-                <div class="fav-heart-btn">
-                <form>
-                <button name="fav_{book['id']}" type="submit">
-                {heart}
-                </button>
-                </form>
-                </div>
-                """,
-                unsafe_allow_html=True
-            ):
+            if st.button(heart, key=f"heart_{book['id']}"):
                 if is_fav:
                     st.session_state.favorites.remove(book["id"])
                 else:
                     st.session_state.favorites.append(book["id"])
 
                 st.rerun()
+
+        # Info button
+        info_key = f"show_info_{book['id']}"
+
+        if info_key not in st.session_state:
+            st.session_state[info_key] = False
+
+        if st.button("ℹ️ More Information", key=f"info_btn_{book['id']}"):
+            st.session_state[info_key] = not st.session_state[info_key]
+
+        if st.session_state[info_key]:
+            st.write(book["plot"])
+            st.markdown(f"[🔗 Link to book]({book['link']})")
 
 # ========== Pages ==========
 if choice == "📩 Contact":
@@ -228,6 +230,7 @@ div.stAlert > div[role="alert"] * {
 }
 </style>
 """, unsafe_allow_html=True)
+
 
 
 
