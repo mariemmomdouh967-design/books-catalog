@@ -6,7 +6,7 @@ st.set_page_config(page_title="📚 Books Catalog", page_icon="📖", layout="wi
 # ========== Books Data ==========
 books = [ 
    
-     {   "id": 1,
+     {"id": 1,
      "title": "A Whisper in the Bay", "author": "Fiona Baker", "rating": "4.4",
      "image": "https://m.media-amazon.com/images/I/81ONCaLf05L._SY466_.jpg",
      "plot": "A heartwarming small-town romance about fresh starts, family bonds, and finding love where you least expect it—in the cozy coastal charm of Blueberry Bay.",
@@ -136,25 +136,32 @@ def display_book(book):
         if info_key not in st.session_state:
             st.session_state[info_key] = False
 
-        if st.button(f"ℹ️ More Information about {book['title']}", key=f"info_{book['id']}"):
+        if st.button("ℹ️ More Information", key=f"info_btn_{book['id']}"):
             st.session_state[info_key] = not st.session_state[info_key]
 
         if st.session_state[info_key]:
             st.write(book["plot"])
             st.markdown(f"[🔗 Link to book]({book['link']})")
 
-        # -------- Favorites Button --------
-        is_fav = book["id"] in st.session_state.favorites
+        # -------- Favorites Toggle --------
+        fav_key = f"fav_toggle_{book['id']}"
 
-        fav_label = "❤️ Remove from Favorites" if is_fav else "🤍 Add to Favorites"
+        # تأكد إن القيمة متزامنة مع favorites list
+        if fav_key not in st.session_state:
+            st.session_state[fav_key] = book["id"] in st.session_state.favorites
 
-        if st.button(fav_label, key=f"fav_btn_{book['id']}"):
+        is_checked = st.toggle(
+            "❤️ Add to Favorites",
+            key=fav_key
+        )
 
-            if is_fav:
-                if book["id"] in st.session_state.favorites:
-                    st.session_state.favorites.remove(book["id"])
-            else:
+        # تحديث ليست الفيفوريت
+        if is_checked:
+            if book["id"] not in st.session_state.favorites:
                 st.session_state.favorites.append(book["id"])
+        else:
+            if book["id"] in st.session_state.favorites:
+                st.session_state.favorites.remove(book["id"])
 
 # ========== Pages ==========
 if choice == "📩 Contact":
@@ -223,6 +230,8 @@ div.stAlert > div[role="alert"] * {
 }
 </style>
 """, unsafe_allow_html=True)
+
+
 
 
 
