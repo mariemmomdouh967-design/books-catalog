@@ -161,14 +161,20 @@ if choice == "📩 Contact":
     st.info("📧 Official Email: **mariemmomdouh967@gmail.com**")
 
 elif choice == "❤️ Favorites":
-    if st.session_state.favorites:
+
+    if len(st.session_state.favorites) > 0:
         st.success("📌 Your Favorite Books:")
+
         cols = st.columns(2)
-        for i, fav in enumerate(st.session_state.favorites):
-            book = next((b for b in books if b["id"] == fav), None)
+
+        for i, fav_id in enumerate(st.session_state.favorites):
+
+            book = next((b for b in books if b["id"] == fav_id), None)
+
             if book:
                 with cols[i % 2]:
                     display_book(book)
+
     else:
         st.warning("❤️ No favorites added yet.")
 
@@ -217,6 +223,8 @@ div.stAlert > div[role="alert"] * {
 }
 </style>
 """, unsafe_allow_html=True)
+
+
 
 
 
