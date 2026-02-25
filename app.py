@@ -130,13 +130,26 @@ def display_book(book):
 
         st.image(book["image"], width=150)
 
-        col1, col2 = st.columns([0.95, 0.05])
+        st.subheader(f"{book['title']} by {book['author']} | ⭐ {book['rating']}")
 
+        # ===== Buttons Row =====
+        col1, col2 = st.columns([0.8, 0.2])
+
+        # ---------- Info Button ----------
         with col1:
-            st.markdown(
-                f"### {book['title']} by {book['author']} | ⭐ {book['rating']}"
-            )
+            info_key = f"show_info_{book['id']}"
 
+            if info_key not in st.session_state:
+                st.session_state[info_key] = False
+
+            if st.button("ℹ️ More Information", key=f"info_btn_{book['id']}"):
+                st.session_state[info_key] = not st.session_state[info_key]
+
+            if st.session_state[info_key]:
+                st.write(book["plot"])
+                st.markdown(f"[🔗 Link to book]({book['link']})")
+
+        # ---------- Heart Button ----------
         with col2:
             is_fav = book["id"] in st.session_state.favorites
 
@@ -150,18 +163,7 @@ def display_book(book):
 
                 st.rerun()
 
-        # Info button
-        info_key = f"show_info_{book['id']}"
-
-        if info_key not in st.session_state:
-            st.session_state[info_key] = False
-
-        if st.button("ℹ️ More Information", key=f"info_btn_{book['id']}"):
-            st.session_state[info_key] = not st.session_state[info_key]
-
-        if st.session_state[info_key]:
-            st.write(book["plot"])
-            st.markdown(f"[🔗 Link to book]({book['link']})")
+        st.markdown('</div>', unsafe_allow_html=True)
 
 # ========== Pages ==========
 if choice == "📩 Contact":
@@ -230,6 +232,7 @@ div.stAlert > div[role="alert"] * {
 }
 </style>
 """, unsafe_allow_html=True)
+
 
 
 
