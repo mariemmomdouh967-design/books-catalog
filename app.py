@@ -125,24 +125,18 @@ choice = st.radio(
 # ========== Function to Display a Book ==========
 def display_book(book):
     with st.container():
+
         st.markdown('<div class="book-card">', unsafe_allow_html=True)
 
         # صورة الكتاب
         st.image(book["image"], width=150)
 
-        # ---------- Title + Heart ----------
-        col1, col2 = st.columns([8, 1])
+        # ===== Title + Heart in Same Row =====
+        col1, col2 = st.columns([0.9, 0.1])
 
         with col1:
             st.markdown(
-                f"""
-                <div style="display:flex; align-items:center; gap:10px;">
-                    <h4 style="margin:0;">
-                        {book['title']} by {book['author']} | ⭐ {book['rating']}
-                    </h4>
-                </div>
-                """,
-                unsafe_allow_html=True
+                f"### {book['title']} by {book['author']} | ⭐ {book['rating']}"
             )
 
         with col2:
@@ -154,9 +148,10 @@ def display_book(book):
                     st.session_state.favorites.remove(book["id"])
                 else:
                     st.session_state.favorites.append(book["id"])
+
                 st.rerun()
 
-        # ---------- Info Toggle ----------
+        # ===== Info Button =====
         info_key = f"show_info_{book['id']}"
 
         if info_key not in st.session_state:
@@ -170,7 +165,6 @@ def display_book(book):
             st.markdown(f"[🔗 Link to book]({book['link']})")
 
         st.markdown('</div>', unsafe_allow_html=True)
-        
 # ========== Pages ==========
 if choice == "📩 Contact":
     st.info("📧 Official Email: **mariemmomdouh967@gmail.com**")
@@ -238,6 +232,7 @@ div.stAlert > div[role="alert"] * {
 }
 </style>
 """, unsafe_allow_html=True)
+
 
 
 
