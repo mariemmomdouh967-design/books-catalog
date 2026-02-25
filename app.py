@@ -134,17 +134,26 @@ def display_book(book):
         col1, col2 = st.columns([8, 1])
 
         with col1:
-            st.subheader(f"{book['title']} by {book['author']} | ⭐ {book['rating']}")
+            st.markdown(
+                f"""
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <h4 style="margin:0;">
+                        {book['title']} by {book['author']} | ⭐ {book['rating']}
+                    </h4>
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
 
         with col2:
             is_fav = book["id"] in st.session_state.favorites
+            heart = "❤️" if is_fav else "🤍"
 
-            if st.button("❤️" if is_fav else "🤍", key=f"heart_{book['id']}"):
+            if st.button(heart, key=f"heart_{book['id']}"):
                 if is_fav:
                     st.session_state.favorites.remove(book["id"])
                 else:
                     st.session_state.favorites.append(book["id"])
-
                 st.rerun()
 
         # ---------- Info Toggle ----------
@@ -154,7 +163,7 @@ def display_book(book):
             st.session_state[info_key] = False
 
         if st.button("ℹ️ More Information", key=f"info_btn_{book['id']}"):
-            st.session_state[info_key] = not st.session_state[info_key]  
+            st.session_state[info_key] = not st.session_state[info_key]
 
         if st.session_state[info_key]:
             st.write(book["plot"])
@@ -229,6 +238,9 @@ div.stAlert > div[role="alert"] * {
 }
 </style>
 """, unsafe_allow_html=True)
+
+
+
 
 
 
