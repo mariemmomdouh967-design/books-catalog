@@ -85,18 +85,6 @@ if "favorites" not in st.session_state:
 
 st.markdown("""
 <style>
-.fav-heart-btn button {
-    background: none !important;
-    border: none !important;
-    padding: 0 !important;
-    font-size: 22px !important;
-    cursor: pointer;
-}
-</style>
-""", unsafe_allow_html=True)
-
-st.markdown("""
-<style>
 /* خلفية جذابة */
 .stApp {
     background-image: linear-gradient(to right, #ffffff, #a7ffeb);
@@ -240,6 +228,7 @@ div.stAlert > div[role="alert"] * {
 }
 </style>
 """, unsafe_allow_html=True)
+
 
 
 
