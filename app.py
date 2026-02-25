@@ -130,17 +130,16 @@ def display_book(book):
             st.write(book["plot"])
             st.markdown(f"[🔗 Link to book]({book['link']})")
 
-        # ================= Favorites Button =================
-        fav_key = f"fav_{book['title']}"  # key فريد لكل كتاب
-        is_fav = book["title"] in st.session_state.favorites
+        # زرار favorites
+fav_key = f"fav_{book['title']}"  # key فريد لكل كتاب
+is_fav = book["title"] in st.session_state.favorites
 
-        if st.button("❤️ Remove from Favorites" if is_fav else "🤍 Add to Favorites", key=fav_key):
-            if is_fav:
-                st.session_state.favorites.remove(book["title"])
-            else:
-                st.session_state.favorites.append(book["title"])
+if st.button("❤️ Remove from Favorites" if is_fav else "🤍 Add to Favorites", key=fav_key):
+    if is_fav:
+        st.session_state.favorites.remove(book["title"])
+    else:
+        st.session_state.favorites.append(book["title"])
 
-        st.markdown('</div>', unsafe_allow_html=True)
 
 # ========== Pages ==========
 if choice == "📩 Contact":
