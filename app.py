@@ -126,6 +126,7 @@ choice = st.radio(
 def display_book(book):
     with st.container():
         st.markdown('<div class="book-card">', unsafe_allow_html=True)
+
         st.image(book["image"], width=150)
         st.subheader(f"{book['title']} by {book['author']} | ⭐ {book['rating']}")
 
@@ -143,15 +144,15 @@ def display_book(book):
             st.markdown(f"[🔗 Link to book]({book['link']})")
 
         # -------- Favorites Button --------
-        fav_key = f"fav_{book['id']}"
         is_fav = book["id"] in st.session_state.favorites
 
-        if st.button(
-            "❤️ Remove from Favorites" if is_fav else "🤍 Add to Favorites",
-            key=fav_key
-        ):
+        fav_label = "❤️ Remove from Favorites" if is_fav else "🤍 Add to Favorites"
+
+        if st.button(fav_label, key=f"fav_btn_{book['id']}"):
+
             if is_fav:
-                st.session_state.favorites.remove(book["id"])
+                if book["id"] in st.session_state.favorites:
+                    st.session_state.favorites.remove(book["id"])
             else:
                 st.session_state.favorites.append(book["id"])
 
@@ -216,6 +217,8 @@ div.stAlert > div[role="alert"] * {
 }
 </style>
 """, unsafe_allow_html=True)
+
+
 
 
 
