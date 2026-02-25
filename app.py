@@ -132,7 +132,7 @@ def display_book(book):
 
         st.subheader(f"{book['title']} by {book['author']} | ⭐ {book['rating']}")
 
-        # ===== Info Button =====
+        # -------- Info Toggle --------
         info_key = f"show_info_{book['id']}"
 
         if info_key not in st.session_state:
@@ -145,15 +145,13 @@ def display_book(book):
             st.write(book["plot"])
             st.markdown(f"[🔗 Link to book]({book['link']})")
 
-        # ===== Favorite Single Toggle Button =====
+        # -------- ❤️ Heart Favorite Button --------
+
         is_fav = book["id"] in st.session_state.favorites
 
-        if is_fav:
-            fav_label = "❤️ Remove from favorites"
-        else:
-            fav_label = "🤍 Add to favorites"
+        heart_label = "❤️ Remove from fav" if is_fav else "🤍 Add to fav"
 
-        if st.button(fav_label, key=f"fav_{book['id']}"):
+        if st.button(heart_label, key=f"heart_{book['id']}"):
 
             if is_fav:
                 if book["id"] in st.session_state.favorites:
@@ -231,6 +229,7 @@ div.stAlert > div[role="alert"] * {
 }
 </style>
 """, unsafe_allow_html=True)
+
 
 
 
