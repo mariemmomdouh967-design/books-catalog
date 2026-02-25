@@ -133,7 +133,7 @@ def display_book(book):
         st.subheader(f"{book['title']} by {book['author']} | ⭐ {book['rating']}")
 
         # ===== Buttons Row =====
-        col1, col2 = st.columns([0.8, 0.2])
+        col1, col2 = st.columns([0.9, 0.1])
 
         # ---------- Info Button ----------
         with col1:
@@ -232,6 +232,7 @@ div.stAlert > div[role="alert"] * {
 }
 </style>
 """, unsafe_allow_html=True)
+
 
 
 
