@@ -127,42 +127,41 @@ def display_book(book):
     with st.container():
         st.markdown('<div class="book-card">', unsafe_allow_html=True)
 
+        # صورة الكتاب
         st.image(book["image"], width=150)
-        st.subheader(f"{book['title']} by {book['author']} | ⭐ {book['rating']}")
 
-        # -------- Info Toggle --------
+        # ---------- Title + Heart ----------
+        col1, col2 = st.columns([8, 1])
+
+        with col1:
+            st.subheader(f"{book['title']} by {book['author']} | ⭐ {book['rating']}")
+
+        with col2:
+            is_fav = book["id"] in st.session_state.favorites
+
+            if st.button("❤️" if is_fav else "🤍", key=f"heart_{book['id']}"):
+                if is_fav:
+                    st.session_state.favorites.remove(book["id"])
+                else:
+                    st.session_state.favorites.append(book["id"])
+
+                st.rerun()
+
+        # ---------- Info Toggle ----------
         info_key = f"show_info_{book['id']}"
 
         if info_key not in st.session_state:
             st.session_state[info_key] = False
 
         if st.button("ℹ️ More Information", key=f"info_btn_{book['id']}"):
-            st.session_state[info_key] = not st.session_state[info_key]
+            st.session_state[info_key] = not st.session_state[info_key]  
 
         if st.session_state[info_key]:
             st.write(book["plot"])
             st.markdown(f"[🔗 Link to book]({book['link']})")
 
-        # -------- Favorites Toggle --------
-        fav_key = f"fav_toggle_{book['id']}"
-
-        # تأكد إن القيمة متزامنة مع favorites list
-        if fav_key not in st.session_state:
-            st.session_state[fav_key] = book["id"] in st.session_state.favorites
-
-        is_checked = st.toggle(
-            "❤️ Add to Favorites",
-            key=fav_key
-        )
-
-        # تحديث ليست الفيفوريت
-        if is_checked:
-            if book["id"] not in st.session_state.favorites:
-                st.session_state.favorites.append(book["id"])
-        else:
-            if book["id"] in st.session_state.favorites:
-                st.session_state.favorites.remove(book["id"])
-
+        st.markdown('</div>', unsafe_allow_html=True)
+        
 # ========== Pages ==========
 if choice == "📩 Contact":
     st.info("📧 Official Email: **mariemmomdouh967@gmail.com**")
@@ -230,10 +229,6 @@ div.stAlert > div[role="alert"] * {
 }
 </style>
 """, unsafe_allow_html=True)
-
-
-
-
 
 
 
