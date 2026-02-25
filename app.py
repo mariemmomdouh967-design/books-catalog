@@ -85,6 +85,18 @@ if "favorites" not in st.session_state:
 
 st.markdown("""
 <style>
+.fav-heart-btn button {
+    background: none !important;
+    border: none !important;
+    padding: 0 !important;
+    font-size: 22px !important;
+    cursor: pointer;
+}
+</style>
+""", unsafe_allow_html=True)
+
+st.markdown("""
+<style>
 /* خلفية جذابة */
 .stApp {
     background-image: linear-gradient(to right, #ffffff, #a7ffeb);
@@ -128,11 +140,9 @@ def display_book(book):
 
         st.markdown('<div class="book-card">', unsafe_allow_html=True)
 
-        # صورة الكتاب
         st.image(book["image"], width=150)
 
-        # ===== Title + Heart in Same Row =====
-        col1, col2 = st.columns([0.9, 0.1])
+        col1, col2 = st.columns([0.95, 0.05])
 
         with col1:
             st.markdown(
@@ -141,9 +151,21 @@ def display_book(book):
 
         with col2:
             is_fav = book["id"] in st.session_state.favorites
+
             heart = "❤️" if is_fav else "🤍"
 
-            if st.button(heart, key=f"heart_{book['id']}"):
+            if st.markdown(
+                f"""
+                <div class="fav-heart-btn">
+                <form>
+                <button name="fav_{book['id']}" type="submit">
+                {heart}
+                </button>
+                </form>
+                </div>
+                """,
+                unsafe_allow_html=True
+            ):
                 if is_fav:
                     st.session_state.favorites.remove(book["id"])
                 else:
@@ -151,20 +173,6 @@ def display_book(book):
 
                 st.rerun()
 
-        # ===== Info Button =====
-        info_key = f"show_info_{book['id']}"
-
-        if info_key not in st.session_state:
-            st.session_state[info_key] = False
-
-        if st.button("ℹ️ More Information", key=f"info_btn_{book['id']}"):
-            st.session_state[info_key] = not st.session_state[info_key]
-
-        if st.session_state[info_key]:
-            st.write(book["plot"])
-            st.markdown(f"[🔗 Link to book]({book['link']})")
-
-        st.markdown('</div>', unsafe_allow_html=True)
 # ========== Pages ==========
 if choice == "📩 Contact":
     st.info("📧 Official Email: **mariemmomdouh967@gmail.com**")
@@ -232,6 +240,8 @@ div.stAlert > div[role="alert"] * {
 }
 </style>
 """, unsafe_allow_html=True)
+
+
 
 
 
