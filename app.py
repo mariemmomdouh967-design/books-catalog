@@ -149,7 +149,7 @@ def display_book(book):
 
         is_fav = book["id"] in st.session_state.favorites
 
-        heart_label = "❤️ Remove from fav" if is_fav else "🤍 Add to fav"
+        heart_label = "❤️ Remove from Favorites" if is_fav else "🤍 Add to Favorites"
 
         if st.button(heart_label, key=f"heart_{book['id']}"):
 
